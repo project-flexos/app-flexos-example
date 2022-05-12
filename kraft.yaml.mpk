@@ -1,0 +1,41 @@
+---
+specification: '0.6'
+name: flexos-example
+unikraft:
+  version: staging
+  kconfig:
+    - CONFIG_LIBFLEXOS=y
+    - CONFIG_LIBFLEXOS_INTELPKU=y
+    - CONFIG_PT_API=y
+    - CONFIG_LIBCPIO=y
+    - CONFIG_LIBINITRAMFS=y
+    - CONFIG_LIBDEVFS_AUTOMOUNT=y
+    - CONFIG_LIBVFSCORE_AUTOMOUNT_ROOTFS=y
+    - CONFIG_LIBVFSCORE_ROOTFS_RAMFS=y
+targets:
+  - architecture: x86_64
+    platform: kvm
+compartments:
+  - name: comp1
+    mechanism:
+      driver: intel-pku
+    default: true
+  - name: comp2
+    mechanism:
+      driver: intel-pku
+libraries:
+  tlsf:
+    version: staging
+    kconfig:
+      - CONFIG_LIBTLSF=y
+  newlib:
+    version: staging
+    kconfig:
+      - CONFIG_LIBNEWLIBC=y
+      - CONFIG_LIBNEWLIBM=y
+    compartment: comp1
+  flexos-example:
+    version: lyon-workshop
+    compartment: comp2
+volumes: {}
+networks: {}

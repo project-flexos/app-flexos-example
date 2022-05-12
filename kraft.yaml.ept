@@ -5,6 +5,13 @@ unikraft:
   version: staging
   kconfig:
     - CONFIG_LIBFLEXOS=y
+    - CONFIG_LIBFLEXOS_VMEPT=y
+    - CONFIG_PT_API=y
+    - CONFIG_LIBCPIO=y
+    - CONFIG_LIBINITRAMFS=y
+    - CONFIG_LIBDEVFS_AUTOMOUNT=y
+    - CONFIG_LIBVFSCORE_AUTOMOUNT_ROOTFS=y
+    - CONFIG_LIBVFSCORE_ROOTFS_RAMFS=y
 targets:
   - architecture: x86_64
     platform: kvm
@@ -30,7 +37,7 @@ libraries:
       - CONFIG_LIBNEWLIBM=y
     compartment: comp1
   flexos-example:
-    version: staging
+    version: lyon-workshop
     compartment: comp2
 volumes: {}
 networks: {}
