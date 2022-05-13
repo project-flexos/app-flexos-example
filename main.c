@@ -47,13 +47,14 @@
  */
 
 /* a callback called by the library */
+__attribute__((libflexosexample_callback))
 void callback(int foo)
 {
 	printf("callback called!\n");
 }
 
 /* static buffer that we pass to the library */
-static char static_buf[32];
+static char static_buf[32] __attribute__((flexos_whitelist));
 
 /* a private static buffer */
 static char static_app_secret[32];
@@ -64,14 +65,15 @@ int main(int __unused argc, char __unused *argv[])
 	static_app_secret[0] = 'B';
 
 	/* shared stack integer used by the library */
-	int stack_int = 21;
+	int stack_int __attribute__((flexos_whitelist)) = 21;
 
 	/* shared stack buffer that we pass to the library */
-	char stack_buf[32];
+	char stack_buf[32] __attribute__((flexos_whitelist));
 	stack_buf[0] = 'C';
 
 	/* call library function */
-	lib_func(&callback, static_buf, &stack_int, stack_buf);
+	flexos_gate(libflexosexample, lib_func, &callback,
+			static_buf, &stack_int, stack_buf);
 
 	return 0;
 }
