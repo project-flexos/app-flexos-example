@@ -5,6 +5,8 @@ unikraft:
   version: staging
   kconfig:
     - CONFIG_LIBFLEXOS=y
+    - CONFIG_LIBVFSCORE_AUTOMOUNT_ROOTFS=y
+    - CONFIG_LIBVFSCORE_ROOTFS_RAMFS=y
 targets:
   - architecture: x86_64
     platform: kvm
